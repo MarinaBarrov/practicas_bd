@@ -67,3 +67,34 @@ WHERE titulo = "owner";
 SELECT contacto
 FROM clientes 
 WHERE contacto like "c%"
+
+-- Facturas
+
+-- 1. Obtener un listado de todas las facturas, ordenado por fecha de factura
+-- ascendente.
+
+SELECT *
+FROM facturas
+ORDER BY FechaFactura ASC;
+
+-- 2. Ahora se requiere un listado de las facturas con el país de envío “USA” y
+-- que su correo (EnvioVia) sea distinto de 3.
+
+SELECT *
+FROM Facturas
+WHERE paisEnvio = "USA"
+AND EnvioVia != 3;
+
+-- 3. ¿El cliente 'GOURL' realizó algún pedido?
+-- sipi
+
+SELECT ClienteId, count(*) as numero_pedidos
+FROM facturas
+WHERE ClienteId = "GOURL";
+
+-- 4. Se quiere visualizar todas las facturas de los empleados 2, 3, 5, 8 y 9.
+
+SELECT *
+FROM facturas
+WHERE EmpleadoId IN (2, 3, 5, 8, 9)
+ORDER BY EmpleadoId ASC
