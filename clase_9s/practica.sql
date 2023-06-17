@@ -45,3 +45,25 @@ FROM Productos
 WHERE UnidadesStock < NivelReorden
 AND UnidadesPedidas = 0;
 
+-- Clientes
+
+-- 1. Obtener un listado de todos los clientes con Contacto, Compania, Título,
+-- País. Ordenar el listado por País.
+
+SELECT contacto, Compania, Titulo, Pais
+FROM Clientes
+ORDER BY pais;
+
+-- 2. Queremos conocer a todos los clientes que tengan un título “Owner”.
+
+SELECT *
+FROM clientes
+WHERE titulo = "owner";
+
+-- 3. El operador telefónico que atendió a un cliente no recuerda su nombre.
+-- Solo sabe que comienza con “C”. ¿Lo ayudamos a obtener un listado con
+-- todos los contactos que inician con la letra “C”?
+
+SELECT contacto
+FROM clientes 
+WHERE contacto like "c%"
