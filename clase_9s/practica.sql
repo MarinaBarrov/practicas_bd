@@ -98,3 +98,55 @@ SELECT *
 FROM facturas
 WHERE EmpleadoId IN (2, 3, 5, 8, 9)
 ORDER BY EmpleadoId ASC
+
+-- Productos
+
+-- 1. Obtener el listado de todos los productos ordenados
+-- descendentemente por precio unitario.
+
+SELECT *
+FROM productos
+ORDER BY precioUnitario DESC;
+
+-- 2. Obtener el listado de top 5 de productos cuyo precio unitario es
+-- el más caro.
+
+SELECT *
+FROM productos 
+ORDER BY precioUnitario DESC 
+LIMIT 5;
+
+-- 3. Obtener un top 10 de los productos con más unidades en stock.
+
+SELECT *
+FROM productos 
+ORDER BY UnidadesStock DESC
+LIMIT 10;
+
+
+-- FacturaDetalle
+
+-- 1. Obtener un listado de FacturaID, Producto, Cantidad.
+
+SELECT facturaId,productoId, cantidad
+FROM FacturaDetalle;
+
+-- 2. Ordenar el listado anterior por cantidad descendentemente.
+
+SELECT facturaId,productoId, cantidad
+FROM FacturaDetalle
+ORDER BY cantidad DESC;
+
+-- 3. Filtrar el listado solo para aquellos productos donde la cantidad
+-- se encuentre entre 50 y 100.
+
+SELECT facturaId,productoId, cantidad
+FROM FacturaDetalle
+WHERE cantidad BETWEEN 50 AND 100;
+
+-- 4. En otro listado nuevo, obtener un listado con los siguientes
+-- nombres de columnas: NroFactura (FacturaID), Producto
+-- (ProductoID), Total (PrecioUnitario*Cantidad).
+
+SELECT FacturaId, ProductoId, precioUnitario * Cantidad
+FROM FacturaDetalle
