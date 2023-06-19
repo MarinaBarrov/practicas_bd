@@ -87,3 +87,70 @@ GROUP BY productoID;
 SELECT productoID, MAX(precioUnitario)
 FROM FacturaDetalle
 GROUP BY productoID;
+
+
+
+
+-- Consultas queries XL parte II - JOIN
+
+-- 1) Generar un listado de todas las facturas del empleado 'Buchanan'.
+SELECT empleados.apellido, empleados.empleadoID, facturas.FacturaiD
+FROM empleados
+INNER JOIN facturas ON empleados.empleadoId = facturas.empleadoId
+WHERE empleados.apellido = "Buchanan";
+
+-- 2) Generar un listado con todos los campos de las facturas del correo 'Speedy
+-- Express'.
+
+SELECT correos.compania, facturas.facturaID
+FROM correos
+INNER JOIN facturas ON correos.correoId = facturas.EnvioVia
+WHERE correos.compania = "Speedy Express";
+ 
+-- 3) Generar un listado de todas las facturas con el nombre y apellido de los
+-- empleados.
+
+SELECT empleados.nombre, empleados.apellido, facturas.facturaID
+FROM empleados
+INNER JOIN facturas ON empleados.empleadoId = facturas.empleadoId;
+
+-- 4) Mostrar un listado de las facturas de todos los clientes “Owner” y país de envío
+-- “USA”.
+
+SELECT clientes.clienteId, clientes.titulo, facturas.facturaId 
+FROM clientes
+INNER JOIN facturas ON clientes.clienteId = facturas.clienteId
+WHERE clientes.titulo = "owner";
+
+-- 5) Mostrar todos los campos de las facturas del empleado cuyo apellido sea
+-- “Leverling” o que incluyan el producto id = “42”.
+
+SELECT facturas.*
+FROM empleados
+INNER JOIN facturas ON empleados.empleadoId = facturas.empleadoID
+INNER JOIN FacturaDetalle ON facturas.FacturaID = FacturaDetalle.facturaId
+INNER JOIN Productos ON productos.productoId = FacturaDetalle.ProductoID
+WHERE empleados.apellido = "Leverling"
+OR productos.ProductoID = "42";
+
+-- 6) Mostrar todos los campos de las facturas del empleado cuyo apellido sea
+-- “Leverling” y que incluya los producto id = “80” o ”42”.
+
+SELECT facturas.*
+FROM empleados
+INNER JOIN facturas ON empleados.empleadoId = facturas.empleadoID
+INNER JOIN FacturaDetalle ON facturas.FacturaID = FacturaDetalle.facturaId
+INNER JOIN Productos ON productos.productoId = FacturaDetalle.ProductoID
+WHERE empleados.apellido = "Leverling"
+AND productos.ProductoID = "42" OR "80";
+
+-- 7) Generar un listado con los cinco mejores clientes, según sus importes de
+-- compras total (PrecioUnitario * Cantidad).
+
+SELECT clientes.*, sum(facturaDetalle.precioUnitario * facturaDetalle.cantidad) AS "Compra Total"
+FROM Clientes
+INNER JOIN Facturas ON clientes.clienteId = Facturas.ClienteID
+INNER JOIN FacturaDetalle ON Facturas.FacturaID = FacturaDetalle.FacturaID
+GROUP BY clientes.ClienteID
+ORDER BY "compra total" DESC
+LIMIT 5;
